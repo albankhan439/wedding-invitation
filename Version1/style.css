@@ -1,0 +1,1317 @@
+/* ==========================================================
+   FARHAN & AYESHA
+   WALIMA INVITATION WEBSITE
+ 
+   Theme : Emerald Garden
+   Version : 1.0
+========================================================== */
+ 
+/* =========================
+        GOOGLE FONTS
+========================= */
+ 
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap');
+ 
+/* =========================
+          RESET
+========================= */
+ 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+ 
+html{
+    scroll-behavior:smooth;
+}
+ 
+body{
+ 
+    background:#062E28;
+ 
+    color:#ffffff;
+ 
+    font-family:'Poppins',sans-serif;
+ 
+    overflow-x:hidden;
+ 
+}
+ 
+/* =========================
+        VARIABLES
+========================= */
+ 
+:root{
+ 
+--primary:#0B5D4B;
+ 
+--secondary:#D4AF37;
+ 
+--white:#ffffff;
+ 
+--light:#f8f8f8;
+ 
+--glass:rgba(255,255,255,.08);
+ 
+--border:rgba(255,255,255,.15);
+ 
+--shadow:0 20px 50px rgba(0,0,0,.35);
+ 
+}
+ 
+/* =========================
+        SCROLLBAR
+========================= */
+ 
+::-webkit-scrollbar{
+ 
+width:8px;
+ 
+}
+ 
+::-webkit-scrollbar-track{
+ 
+background:#04241d;
+ 
+}
+ 
+::-webkit-scrollbar-thumb{
+ 
+background:var(--secondary);
+ 
+border-radius:50px;
+ 
+}
+ 
+/* =========================
+       COMMON SECTION
+========================= */
+ 
+section{
+ 
+padding:100px 8%;
+ 
+position:relative;
+ 
+}
+ 
+.section-title{
+ 
+display:flex;
+ 
+justify-content:center;
+ 
+align-items:center;
+ 
+gap:15px;
+ 
+margin-bottom:60px;
+ 
+}
+ 
+.section-title span{
+ 
+color:var(--secondary);
+ 
+font-size:28px;
+ 
+}
+ 
+.section-title h2{
+ 
+font-family:'Cinzel',serif;
+ 
+font-size:42px;
+ 
+color:var(--secondary);
+ 
+font-weight:600;
+ 
+letter-spacing:2px;
+ 
+text-transform:uppercase;
+ 
+}
+ 
+/* =========================
+        LOADER
+========================= */
+ 
+#loader{
+ 
+position:fixed;
+ 
+top:0;
+ 
+left:0;
+ 
+width:100%;
+ 
+height:100%;
+ 
+background:#031915;
+ 
+display:flex;
+ 
+justify-content:center;
+ 
+align-items:center;
+ 
+z-index:999999;
+ 
+transition:.8s;
+ 
+}
+ 
+.loader-content{
+ 
+text-align:center;
+ 
+}
+ 
+.loader-ring{
+ 
+width:90px;
+ 
+height:90px;
+ 
+border-radius:50%;
+ 
+border:5px solid rgba(255,255,255,.15);
+ 
+border-top:5px solid var(--secondary);
+ 
+margin:auto;
+ 
+animation:spin 1.3s linear infinite;
+ 
+}
+ 
+.loader-content h1{
+ 
+margin-top:25px;
+ 
+font-family:'Cinzel',serif;
+ 
+font-size:46px;
+ 
+color:var(--secondary);
+ 
+}
+ 
+.loader-content p{
+ 
+margin-top:20px;
+ 
+font-size:22px;
+ 
+letter-spacing:2px;
+ 
+}
+ 
+.arabic{
+ 
+font-family:'Noto Nastaliq Urdu',serif;
+ 
+font-size:30px;
+ 
+color:#F5D97A;
+ 
+line-height:2;
+ 
+}
+ 
+@keyframes spin{
+ 
+100%{
+ 
+transform:rotate(360deg);
+ 
+}
+ 
+}
+ 
+/* =========================
+         NAVBAR
+========================= */
+ 
+nav{
+ 
+position:absolute;
+ 
+top:30px;
+ 
+left:0;
+ 
+width:100%;
+ 
+display:flex;
+ 
+justify-content:space-between;
+ 
+align-items:center;
+ 
+padding:0 8%;
+ 
+z-index:100;
+ 
+}
+ 
+.logo{
+ 
+width:65px;
+ 
+height:65px;
+ 
+border-radius:50%;
+ 
+display:flex;
+ 
+justify-content:center;
+ 
+align-items:center;
+ 
+background:rgba(255,255,255,.08);
+ 
+border:1px solid rgba(255,255,255,.2);
+ 
+font-size:24px;
+ 
+font-family:'Cinzel',serif;
+ 
+color:var(--secondary);
+ 
+backdrop-filter:blur(10px);
+ 
+}
+ 
+nav ul{
+ 
+display:flex;
+ 
+list-style:none;
+ 
+gap:35px;
+ 
+}
+ 
+nav ul li a{
+ 
+text-decoration:none;
+ 
+color:white;
+ 
+font-size:16px;
+ 
+transition:.3s;
+ 
+}
+ 
+nav ul li a:hover{
+ 
+color:var(--secondary);
+ 
+}
+ 
+/* =========================
+          HERO
+========================= */
+ 
+.hero{
+ 
+height:100vh;
+ 
+background:
+linear-gradient(rgba(0,0,0,.45),
+rgba(0,0,0,.55)),
+url("assets/images/background.jpg");
+ 
+background-size:cover;
+ 
+background-position:center;
+ 
+background-attachment:fixed;
+ 
+display:flex;
+ 
+justify-content:center;
+ 
+align-items:center;
+ 
+text-align:center;
+ 
+position:relative;
+ 
+}
+ 
+.overlay{
+ 
+width:100%;
+ 
+height:100%;
+ 
+display:flex;
+ 
+justify-content:center;
+ 
+align-items:center;
+ 
+}
+ 
+.hero-content{
+ 
+width:90%;
+ 
+max-width:750px;
+ 
+padding:60px;
+ 
+background:var(--glass);
+ 
+backdrop-filter:blur(20px);
+ 
+border:1px solid var(--border);
+ 
+border-radius:35px;
+ 
+box-shadow:var(--shadow);
+ 
+}
+ 
+.guest-box{
+ 
+margin-bottom:20px;
+ 
+}
+ 
+#welcomeText{
+ 
+font-size:22px;
+ 
+color:#F7DA80;
+ 
+font-family:'Cinzel',serif;
+ 
+}
+ 
+.small-title{
+ 
+letter-spacing:6px;
+ 
+font-size:15px;
+ 
+color:#ddd;
+ 
+margin-bottom:25px;
+ 
+}
+ 
+.hero-content h1{
+ 
+font-family:'Cinzel',serif;
+ 
+font-size:65px;
+ 
+color:var(--secondary);
+ 
+margin:10px 0;
+ 
+}
+ 
+.ampersand{
+ 
+font-size:42px;
+ 
+margin:15px 0;
+ 
+color:white;
+ 
+}
+ 
+.hero-divider{
+ 
+width:120px;
+ 
+height:2px;
+ 
+background:var(--secondary);
+ 
+margin:30px auto;
+ 
+}
+ 
+.hero-date,
+.hero-time,
+.hero-location{
+ 
+font-size:20px;
+ 
+margin-top:12px;
+ 
+}
+ 
+.hero-location i{
+ 
+margin-right:8px;
+ 
+color:var(--secondary);
+ 
+}
+ 
+.open-btn{
+ 
+display:inline-block;
+ 
+margin-top:35px;
+ 
+padding:16px 45px;
+ 
+border-radius:50px;
+ 
+background:var(--secondary);
+ 
+color:#052d24;
+ 
+font-weight:600;
+ 
+text-decoration:none;
+ 
+transition:.35s;
+ 
+}
+ 
+.open-btn:hover{
+ 
+transform:translateY(-5px);
+ 
+box-shadow:0 0 30px rgba(212,175,55,.5);
+ 
+}
+/* ==========================================================
+   INVITATION SECTION
+========================================================== */
+ 
+#invitation,
+#urdu-invitation,
+.verse,
+#details,
+.countdown,
+#gallery,
+#venue,
+#rsvp{
+ 
+    background:transparent;
+ 
+}
+ 
+.invite-card,
+.urdu-card,
+.verse-card,
+.venue-card{
+ 
+    max-width:950px;
+ 
+    margin:auto;
+ 
+    padding:55px;
+ 
+    border-radius:30px;
+ 
+    background:var(--glass);
+ 
+    border:1px solid var(--border);
+ 
+    backdrop-filter:blur(20px);
+ 
+    box-shadow:var(--shadow);
+ 
+    text-align:center;
+ 
+}
+ 
+.invite-card h1{
+ 
+    font-family:'Cinzel',serif;
+ 
+    color:var(--secondary);
+ 
+    font-size:52px;
+ 
+    margin:15px 0;
+ 
+}
+ 
+.invite-card h2{
+ 
+    font-size:40px;
+ 
+    color:white;
+ 
+    margin:10px 0;
+ 
+}
+ 
+.invite-card p{
+ 
+    font-size:18px;
+ 
+    line-height:1.9;
+ 
+    color:#eeeeee;
+ 
+}
+ 
+/* ==========================================================
+   URDU CARD
+========================================================== */
+ 
+.urdu-card{
+ 
+    direction:rtl;
+ 
+    font-family:'Noto Nastaliq Urdu',serif;
+ 
+}
+ 
+.urdu-card h1{
+ 
+    color:var(--secondary);
+ 
+    font-size:42px;
+ 
+    margin:25px 0;
+ 
+}
+ 
+.urdu-card p{
+ 
+    font-size:24px;
+ 
+    line-height:2.3;
+ 
+}
+ 
+/* ==========================================================
+   QURAN VERSE
+========================================================== */
+ 
+.verse-card h2{
+ 
+    color:var(--secondary);
+ 
+    font-family:'Cinzel',serif;
+ 
+    margin-bottom:25px;
+ 
+}
+ 
+.verse-card p{
+ 
+    font-size:22px;
+ 
+    line-height:2;
+ 
+    font-style:italic;
+ 
+}
+ 
+/* ==========================================================
+   EVENT DETAILS
+========================================================== */
+ 
+.detail-grid{
+ 
+    display:grid;
+ 
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+ 
+    gap:30px;
+ 
+    margin-top:50px;
+ 
+}
+ 
+.detail-box{
+ 
+    background:var(--glass);
+ 
+    border:1px solid var(--border);
+ 
+    backdrop-filter:blur(15px);
+ 
+    padding:40px;
+ 
+    border-radius:25px;
+ 
+    text-align:center;
+ 
+    transition:.35s;
+ 
+}
+ 
+.detail-box:hover{
+ 
+    transform:translateY(-10px);
+ 
+    box-shadow:0 20px 40px rgba(212,175,55,.30);
+ 
+}
+ 
+.detail-box i{
+ 
+    font-size:40px;
+ 
+    color:var(--secondary);
+ 
+}
+ 
+.detail-box h3{
+ 
+    margin:20px 0;
+ 
+    color:var(--secondary);
+ 
+    font-family:'Cinzel',serif;
+ 
+}
+ 
+.detail-box p{
+ 
+    line-height:1.8;
+ 
+}
+ 
+/* ==========================================================
+   COUNTDOWN
+========================================================== */
+ 
+#timer{
+ 
+    display:flex;
+ 
+    justify-content:center;
+ 
+    flex-wrap:wrap;
+ 
+    gap:25px;
+ 
+    margin-top:60px;
+ 
+}
+ 
+#timer div{
+ 
+    width:140px;
+ 
+    height:140px;
+ 
+    border-radius:25px;
+ 
+    background:var(--glass);
+ 
+    border:1px solid var(--border);
+ 
+    backdrop-filter:blur(15px);
+ 
+    display:flex;
+ 
+    flex-direction:column;
+ 
+    justify-content:center;
+ 
+    align-items:center;
+ 
+    transition:.3s;
+ 
+}
+ 
+#timer div:hover{
+ 
+    transform:scale(1.05);
+ 
+}
+ 
+#timer span{
+ 
+    font-size:50px;
+ 
+    color:var(--secondary);
+ 
+    font-weight:bold;
+ 
+}
+ 
+#timer p{
+ 
+    margin-top:10px;
+ 
+    letter-spacing:2px;
+ 
+}
+ 
+/* ==========================================================
+   STORY
+========================================================== */
+ 
+.story-text{
+ 
+    max-width:700px;
+ 
+    margin:0 auto 50px;
+ 
+    text-align:center;
+ 
+    font-size:20px;
+ 
+    line-height:1.9;
+ 
+    color:#f1f1f1;
+ 
+}
+ 
+/* ==========================================================
+   GALLERY
+========================================================== */
+ 
+.gallery{
+ 
+    display:grid;
+ 
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+ 
+    gap:30px;
+ 
+}
+ 
+.gallery-card{
+ 
+    overflow:hidden;
+ 
+    border-radius:25px;
+ 
+    background:var(--glass);
+ 
+    border:1px solid var(--border);
+ 
+    box-shadow:var(--shadow);
+ 
+    transition:.4s;
+ 
+}
+ 
+.gallery-card:hover{
+ 
+    transform:translateY(-10px);
+ 
+}
+ 
+.gallery-card img{
+ 
+    width:100%;
+ 
+    display:block;
+ 
+    transition:.6s;
+ 
+}
+ 
+.gallery-card:hover img{
+ 
+    transform:scale(1.08);
+ 
+}
+ /* ==========================================================
+   VENUE
+========================================================== */
+ 
+.venue-card{
+ 
+    max-width:850px;
+ 
+}
+ 
+.venue-icon{
+ 
+    font-size:60px;
+ 
+    color:var(--secondary);
+ 
+    margin-bottom:20px;
+ 
+}
+ 
+.venue-card h2{
+ 
+    font-family:'Cinzel',serif;
+ 
+    color:var(--secondary);
+ 
+    margin-bottom:15px;
+ 
+}
+ 
+.venue-info{
+ 
+    margin:35px 0;
+ 
+}
+ 
+.venue-info div{
+ 
+    margin:15px 0;
+ 
+    font-size:18px;
+ 
+}
+ 
+.venue-info i{
+ 
+    color:var(--secondary);
+ 
+    margin-right:10px;
+ 
+}
+ 
+.venue-buttons{
+ 
+    display:flex;
+ 
+    justify-content:center;
+ 
+    gap:20px;
+ 
+    flex-wrap:wrap;
+ 
+}
+ 
+.map-btn,
+.share-btn{
+ 
+    padding:15px 35px;
+ 
+    border:none;
+ 
+    border-radius:50px;
+ 
+    cursor:pointer;
+ 
+    font-size:16px;
+ 
+    font-weight:600;
+ 
+    text-decoration:none;
+ 
+    transition:.35s;
+ 
+}
+ 
+.map-btn{
+ 
+    background:var(--secondary);
+ 
+    color:#062E28;
+ 
+}
+ 
+.share-btn{
+ 
+    background:transparent;
+ 
+    color:white;
+ 
+    border:1px solid var(--secondary);
+ 
+}
+ 
+.map-btn:hover,
+.share-btn:hover{
+ 
+    transform:translateY(-5px);
+ 
+    box-shadow:0 0 20px rgba(212,175,55,.4);
+ 
+}
+ 
+/* ==========================================================
+   RSVP
+========================================================== */
+ 
+#rsvpForm{
+ 
+    max-width:700px;
+ 
+    margin:auto;
+ 
+    display:flex;
+ 
+    flex-direction:column;
+ 
+    gap:20px;
+ 
+}
+ 
+#rsvpForm input,
+#rsvpForm textarea,
+#rsvpForm select{
+ 
+    padding:18px;
+ 
+    border-radius:15px;
+ 
+    border:1px solid var(--border);
+ 
+    background:var(--glass);
+ 
+    color:white;
+ 
+    font-size:16px;
+ 
+    backdrop-filter:blur(10px);
+ 
+    outline:none;
+ 
+}
+ 
+#rsvpForm input::placeholder,
+#rsvpForm textarea::placeholder{
+ 
+    color:#d7d7d7;
+ 
+}
+ 
+#rsvpForm button{
+ 
+    padding:18px;
+ 
+    border:none;
+ 
+    border-radius:50px;
+ 
+    background:var(--secondary);
+ 
+    color:#062E28;
+ 
+    font-size:18px;
+ 
+    font-weight:bold;
+ 
+    cursor:pointer;
+ 
+    transition:.3s;
+ 
+}
+ 
+#rsvpForm button:hover{
+ 
+    transform:scale(1.03);
+ 
+}
+ 
+/* ==========================================================
+   POPUP
+========================================================== */
+ 
+.popup{
+ 
+    position:fixed;
+ 
+    inset:0;
+ 
+    background:rgba(0,0,0,.75);
+ 
+    display:flex;
+ 
+    justify-content:center;
+ 
+    align-items:center;
+ 
+    opacity:0;
+ 
+    visibility:hidden;
+ 
+    transition:.4s;
+ 
+    z-index:99999;
+ 
+}
+ 
+.show-popup{
+ 
+    opacity:1;
+ 
+    visibility:visible;
+ 
+}
+ 
+.popup-card{
+ 
+    width:90%;
+ 
+    max-width:420px;
+ 
+    background:#08382d;
+ 
+    border:1px solid var(--secondary);
+ 
+    border-radius:25px;
+ 
+    padding:40px;
+ 
+    text-align:center;
+ 
+}
+ 
+.popup-card i{
+ 
+    font-size:55px;
+ 
+    color:#4CAF50;
+ 
+}
+ 
+.popup-card h2{
+ 
+    margin:20px 0;
+ 
+    color:var(--secondary);
+ 
+}
+ 
+.popup-card button{
+ 
+    margin-top:20px;
+ 
+    padding:12px 30px;
+ 
+    border:none;
+ 
+    border-radius:30px;
+ 
+    background:var(--secondary);
+ 
+    color:#062E28;
+ 
+    cursor:pointer;
+ 
+}
+ 
+/* ==========================================================
+   FOOTER
+========================================================== */
+ 
+footer{
+ 
+    padding:80px 20px;
+ 
+    text-align:center;
+ 
+    background:#031b16;
+ 
+}
+ 
+footer h2{
+ 
+    font-family:'Cinzel',serif;
+ 
+    color:var(--secondary);
+ 
+    font-size:42px;
+ 
+    margin-bottom:20px;
+ 
+}
+ 
+footer h3{
+ 
+    margin-top:20px;
+ 
+    color:var(--secondary);
+ 
+}
+ 
+footer p{
+ 
+    line-height:2;
+ 
+}
+ 
+.urdu-footer{
+ 
+    font-family:'Noto Nastaliq Urdu',serif;
+ 
+    font-size:22px;
+ 
+}
+ 
+/* ==========================================================
+   ANIMATIONS
+========================================================== */
+ 
+.fade-up{
+ 
+    opacity:0;
+ 
+    transform:translateY(50px);
+ 
+    transition:all .8s ease;
+ 
+}
+ 
+.fade-up.show{
+ 
+    opacity:1;
+ 
+    transform:translateY(0);
+ 
+}
+ 
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+ 
+@media(max-width:768px){
+ 
+nav{
+ 
+    flex-direction:column;
+ 
+    gap:20px;
+ 
+}
+ 
+nav ul{
+ 
+    flex-wrap:wrap;
+ 
+    justify-content:center;
+ 
+    gap:15px;
+ 
+}
+ 
+.hero-content{
+ 
+    padding:35px 20px;
+ 
+}
+ 
+.hero-content h1{
+ 
+    font-size:40px;
+ 
+}
+ 
+.ampersand{
+ 
+    font-size:28px;
+ 
+}
+ 
+.section-title h2{
+ 
+    font-size:30px;
+ 
+}
+ 
+.invite-card,
+.urdu-card,
+.verse-card,
+.venue-card{
+ 
+    padding:30px 20px;
+ 
+}
+ 
+#timer div{
+ 
+    width:90px;
+ 
+    height:90px;
+ 
+}
+ 
+#timer span{
+ 
+    font-size:28px;
+ 
+}
+ 
+.gallery{
+ 
+    grid-template-columns:1fr;
+ 
+}
+ 
+.venue-buttons{
+ 
+    flex-direction:column;
+ 
+}
+ 
+}
+/*==========================================
+        FLOATING PETALS
+==========================================*/
+ 
+#petals-container{
+ 
+position:fixed;
+ 
+top:0;
+ 
+left:0;
+ 
+width:100%;
+ 
+height:100%;
+ 
+pointer-events:none;
+ 
+overflow:hidden;
+ 
+z-index:1;
+ 
+}
+ 
+.petal{
+ 
+position:absolute;
+ 
+top:-60px;
+ 
+font-size:26px;
+ 
+animation:fall linear forwards;
+ 
+opacity:.9;
+ 
+filter:drop-shadow(0 0 8px rgba(255,215,0,.4));
+ 
+}
+ 
+@keyframes fall{
+ 
+0%{
+ 
+transform:translateY(-50px) rotate(0deg);
+ 
+opacity:0;
+ 
+}
+ 
+10%{
+ 
+opacity:1;
+ 
+}
+ 
+100%{
+ 
+transform:translateY(110vh) rotate(360deg);
+ 
+opacity:0;
+ 
+}
+ 
+}
