@@ -13,6 +13,7 @@
     --display: "Cinzel", Georgia, serif;
     --sans: "Manrope", Arial, sans-serif;
     --urdu: "Noto Nastaliq Urdu", "Times New Roman", serif;
+    --header-height: 88px;
 }
 
 * {
@@ -59,8 +60,21 @@ button {
     cursor: pointer;
 }
 
+a,
+button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 5px;
+}
+
 section {
     position: relative;
+    scroll-margin-top: calc(var(--header-height) + 12px);
 }
 
 .arabic {
@@ -203,9 +217,12 @@ section {
 }
 
 .gold-seal {
+    -webkit-appearance: none;
+    appearance: none;
     background: transparent;
     border: 0;
     border-radius: 50%;
+    box-shadow: none;
     filter: drop-shadow(0 20px 26px rgba(0, 0, 0, .52));
     height: clamp(170px, 22vw, 250px);
     outline: 0;
@@ -239,7 +256,12 @@ section {
     height: 100%;
     object-fit: cover;
     width: 100%;
+    pointer-events: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
+
+.gold-seal:focus:not(:focus-visible) { outline: none; box-shadow: none; }
 
 .gold-seal.active {
     animation: sealOpen 800ms ease forwards;
@@ -285,12 +307,21 @@ section {
 
 .stage-door {
     background:
-        linear-gradient(rgba(1, 18, 16, .24), rgba(1, 18, 16, .4)),
+        linear-gradient(rgba(1, 18, 16, .7), rgba(1, 18, 16, .82)),
         url("sample image/background_light_while_opening_door.jpg") center/cover;
     opacity: 0;
-    perspective: 1800px;
     pointer-events: none;
     transition: opacity 480ms ease;
+}
+
+.doorway {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    perspective: 1800px;
+    position: relative;
+    width: 100%;
 }
 
 .stage-door.active {
@@ -310,11 +341,10 @@ section {
 
 .door {
     backface-visibility: hidden;
-    background-image: url("assets/background/palace-double-doors.jpg");
-    background-repeat: no-repeat;
-    background-size: 200% 100%;
+    background: var(--ink-deep);
     box-shadow: 0 0 45px rgba(0, 0, 0, .42);
     height: 100%;
+    overflow: hidden;
     position: absolute;
     top: 0;
     transform: rotateY(0deg);
@@ -325,6 +355,16 @@ section {
     z-index: 4;
 }
 
+.door::before {
+    /* Both leaves crop the same full-size image, keeping the central seam aligned. */
+    background: url("assets/background/palace-double-doors.jpg") center/cover no-repeat;
+    content: "";
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 200%;
+}
+
 .door::after {
     background: linear-gradient(90deg, rgba(255, 226, 147, .08), transparent 15%, transparent 85%, rgba(0, 0, 0, .22));
     content: "";
@@ -332,8 +372,10 @@ section {
     position: absolute;
 }
 
-.door-left { background-position: left center; left: 0; transform-origin: left center; }
-.door-right { background-position: right center; right: 0; transform-origin: right center; }
+.door-left { left: 0; transform-origin: left center; }
+.door-right { right: 0; transform-origin: right center; }
+.door-left::before { left: 0; }
+.door-right::before { right: 0; }
 .door-right::after { transform: scaleX(-1); }
 
 .stage-door.open .door-left { transform: rotateY(-104deg); }
@@ -439,29 +481,6 @@ section {
 }
 
 .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
-
-.nav-toggle {
-    background: none;
-    border: 0;
-    display: none;
-    height: 40px;
-    position: relative;
-    width: 40px;
-}
-
-.nav-toggle span {
-    background: var(--gold-light);
-    height: 1px;
-    left: 8px;
-    position: absolute;
-    transition: transform 300ms ease, top 300ms ease;
-    width: 24px;
-}
-
-.nav-toggle span:first-child { top: 15px; }
-.nav-toggle span:last-child { top: 24px; }
-.nav-toggle.is-open span:first-child { top: 20px; transform: rotate(45deg); }
-.nav-toggle.is-open span:last-child { top: 20px; transform: rotate(-45deg); }
 
 /* Hero */
 .hero {
@@ -875,70 +894,192 @@ footer p { color: rgba(246, 240, 227, .48); font-size: .58rem; letter-spacing: .
 .popup-card button { background: var(--ink); border: 0; color: var(--ivory); font-size: .6rem; letter-spacing: .2em; margin-top: 27px; padding: 14px 28px; text-transform: uppercase; }
 
 @media (max-width: 900px) {
-    .nav-shell { height: 74px; padding: 0 24px; }
-    .nav-toggle { display: block; z-index: 2; }
-    .nav-toggle { border: 1px solid rgba(234, 212, 156, .35); flex: 0 0 40px; }
-    .nav-links {
-        align-items: flex-start;
-        background: rgba(2, 26, 23, .98);
-        flex-direction: column;
-        gap: 0;
-        left: 0;
-        opacity: 0;
-        padding: 94px 36px 38px;
-        pointer-events: none;
-        position: absolute;
-        right: 0;
-        top: 0;
-        transform: translateY(-12px);
-        transition: opacity 300ms ease, transform 300ms ease;
+    :root { --header-height: 86px; }
+    .site-header {
+        background: rgba(2, 26, 23, .96);
+        border-bottom: 1px solid rgba(202, 168, 94, .22);
+        padding-top: env(safe-area-inset-top, 0px);
+        backdrop-filter: blur(14px);
     }
-    .nav-links.is-open { opacity: 1; pointer-events: auto; transform: translateY(0); }
-    .nav-links a { display: block; font-size: .68rem; padding: 14px 0; }
-    .hero { padding-top: 110px; }
+    .nav-shell { display: grid; gap: 3px; grid-template-columns: minmax(0, 1fr); height: var(--header-height); justify-content: stretch; padding: 8px 20px 0; }
+    .nav-shell .brand { font-size: 1rem; justify-self: start; }
+    .nav-links {
+        display: grid;
+        gap: 8px;
+        grid-template-columns: repeat(4, 1fr);
+        width: 100%;
+    }
+    .nav-links a {
+        align-items: center;
+        color: rgba(246, 240, 227, .86);
+        display: flex;
+        font-size: .62rem;
+        justify-content: center;
+        letter-spacing: .1em;
+        min-height: 44px;
+        padding: 6px 0;
+    }
+    .nav-links a::after { bottom: 7px; }
+    .hero { padding-top: calc(var(--header-height) + 40px); }
+    .invitation-section,
+    .urdu-section,
+    .quran-section,
+    .countdown-section,
     .venue-section,
-    .rsvp-section { grid-template-columns: 1fr; }
-    .venue-visual { max-width: 650px; width: calc(100% - 22px); }
-    .venue-visual img { min-height: 470px; }
-    .venue-content { max-width: 650px; padding-top: 30px; }
+    .rsvp-section,
+    .thanks-section { padding-block: 64px; }
+    .venue-section,
+    .rsvp-section { gap: 40px; grid-template-columns: 1fr; }
+    .venue-visual { max-width: 650px; width: calc(100% - 12px); }
+    .venue-visual img { aspect-ratio: 16 / 10; min-height: 0; }
+    .venue-content { max-width: 650px; padding-top: 0; }
     .rsvp-copy { max-width: 650px; }
-    footer { flex-direction: column; text-align: center; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
     .footer-note { text-align: center; }
+    .stage-door { background-color: var(--ink-deep); }
+    .doorway {
+        aspect-ratio: 5 / 6;
+        border: 1px solid rgba(202, 168, 94, .7);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, .6), 0 0 0 7px rgba(2, 26, 23, .7), 0 0 0 8px rgba(202, 168, 94, .28);
+        height: auto;
+        max-height: 76svh;
+        width: min(calc(100% - 44px), 480px, 63svh);
+    }
+    .door::after {
+        background: linear-gradient(90deg, rgba(202, 168, 94, .07), transparent 40%, rgba(0, 0, 0, .2));
+        border: 1px solid rgba(202, 168, 94, .55);
+        inset: 8px;
+    }
+    .invitation-card { padding: 38px 22px; width: calc(100% - 36px); }
+    .invitation-card p { font-size: .6rem; letter-spacing: .16em; }
+    .invitation-card h2 { font-size: clamp(2rem, 7vw, 3.5rem); margin: 20px 0; }
+    .invitation-card span { font-size: .6rem; }
 }
 
 @media (max-width: 620px) {
     #intro-screen::after { inset: 10px; }
     .intro-kicker { letter-spacing: .22em; }
-    .hero { min-height: 920px; }
-    .corner { opacity: .48; width: 190px; }
-    .corner-tl, .corner-bl { left: -75px; }
-    .corner-tr, .corner-br { right: -75px; }
-    .hero h1 { font-size: clamp(4rem, 21vw, 6rem); }
-    .hero-date { gap: 12px; padding-inline: 8px; }
-    .hero-date span { font-size: .5rem; letter-spacing: .1em; }
-    .hero-meta { margin-inline: auto; max-width: 280px; }
-    .paper-invitation { padding-left: 26px; padding-right: 26px; }
-    .paper-corner { opacity: .5; width: 145px; }
-    .event-ribbon { gap: 15px; grid-template-columns: 1fr; }
-    .event-ribbon > div { padding: 14px 0; }
-    .event-ribbon > div + div { border-left: 0; border-top: 1px solid rgba(146, 118, 63, .25); }
-    .countdown-section { padding-inline: 18px; }
+    .eyebrow { font-size: .6rem; letter-spacing: .22em; }
+    .hero { min-height: 0; padding: calc(var(--header-height) + 28px) 20px 48px; }
+    .corner { opacity: .48; width: 155px; }
+    .corner-tl, .corner-bl { left: -65px; }
+    .corner-tr, .corner-br { right: -65px; }
+    .hero-arabic { font-size: 1.05rem; margin-bottom: 12px; }
+    .hero-line { margin: 12px auto 16px; }
+    .hero-label { font-size: .6rem; letter-spacing: .2em; }
+    .hero h1 { font-size: clamp(3.8rem, 18vw, 5rem); line-height: .85; margin: 26px 0 16px; }
+    .hero h1 em { margin: .16em 0; }
+    .hero-surname { font-size: .54rem; letter-spacing: .32em; margin-bottom: 20px; }
+    .hero-date { gap: 12px; padding: 7px 10px; }
+    .hero-date span { font-size: .54rem; letter-spacing: .08em; }
+    .hero-date strong { font-size: 2rem; }
+    .hero-meta { font-size: .96rem; margin: 16px auto 20px; max-width: 310px; }
+    .luxury-button { gap: 18px; letter-spacing: .13em; min-height: 46px; padding-inline: 20px; }
+    .scroll-cue { display: none; }
+    .invitation-section,
+    .urdu-section,
+    .quran-section,
+    .countdown-section,
+    .venue-section,
+    .rsvp-section,
+    .thanks-section { padding: 44px 20px; }
+    .section-intro { margin-bottom: 26px; }
+    .section-intro h2 { font-size: clamp(2.2rem, 9vw, 3rem); line-height: 1.03; margin: 12px 0 14px; }
+    .section-intro > p:last-child { font-size: 1.07rem; line-height: 1.5; }
+    .paper-invitation { padding: 36px 24px 30px; }
+    .paper-border { inset: 9px; }
+    .paper-border::before { inset: 4px; }
+    .paper-corner { opacity: .5; width: 135px; }
+    .paper-arabic { font-size: 1.04rem; margin-bottom: 14px; }
+    .paper-kicker { font-size: .54rem; letter-spacing: .1em; margin-bottom: 18px; }
+    .paper-copy { font-size: 1rem; line-height: 1.5; }
+    .paper-invitation h3 { font-size: clamp(1.1rem, 4.8vw, 1.6rem); letter-spacing: .08em; margin: 10px 0; }
+    .paper-names { margin: 22px 0 20px; }
+    .paper-names span { font-size: clamp(2.35rem, 10vw, 3.4rem); line-height: 1; }
+    .paper-names em { font-size: 1.6rem; margin: 5px 0; }
+    .paper-rule { margin: 18px auto; }
+    .paper-message { font-size: 1rem; line-height: 1.4; }
+    .event-ribbon { gap: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 24px; padding-top: 16px; }
+    .event-ribbon > div { min-width: 0; padding: 0 6px; }
+    .event-ribbon small { font-size: .5rem; letter-spacing: .1em; margin-bottom: 6px; }
+    .event-ribbon strong { font-size: .66rem; letter-spacing: 0; line-height: 1.5; }
+    .event-ribbon span { font-size: .82rem; }
+    .urdu-panel { padding: 24px 20px 28px; }
+    .urdu-panel .eyebrow { font-size: .8rem; letter-spacing: 0; }
+    .urdu-bismillah { font-size: 1.18rem; margin: 16px 0; }
+    .urdu-copy { font-size: 1.18rem; line-height: 2.25; }
+    .urdu-small { font-size: 1.02rem; margin-top: 12px; }
+    .quran-ornament { font-size: 1.65rem; margin-bottom: 12px; }
+    .quran-section blockquote .arabic { font-size: 1.25rem; line-height: 2.15; }
+    .quote-rule { margin: 20px auto; }
+    .quran-section blockquote > p:not(.arabic) { font-size: 1.08rem; line-height: 1.55; }
+    .quran-section cite { font-size: .54rem; letter-spacing: .12em; margin-top: 18px; }
     .countdown-section::before { inset: 10px; }
-    .countdown-section::after { inset: 28px 16px; }
-    .countdown-grid { gap: 10px; grid-template-columns: repeat(2, 1fr); }
-    .time-unit span { font-size: 3.5rem; }
-    .venue-section { padding-left: 24px; padding-right: 24px; }
-    .venue-visual img { min-height: 370px; }
-    .venue-frame { inset: 12px -12px -12px 12px; }
-    .venue-facts { gap: 16px; grid-template-columns: 1fr; }
-    .venue-facts > div + div { border-left: 0; border-top: 1px solid rgba(146, 118, 63, .25); padding-left: 0; padding-top: 16px; }
-    .rsvp-section { padding-left: 18px; padding-right: 18px; }
-    .form-row { gap: 0; grid-template-columns: 1fr; }
-    .rsvp-form { padding: 34px 24px; }
-    .invitation-card { padding-block: 50px; }
-    .auto-scroll-control { bottom: 14px; right: 14px; }
+    .countdown-section::after { inset: 25px 16px; }
+    .countdown-copy { margin-bottom: 26px; }
+    .countdown-copy h2 { font-size: clamp(2.25rem, 9.5vw, 3rem); line-height: 1; margin: 12px 0 14px; }
+    .countdown-copy > p:last-child { font-size: 1.04rem; line-height: 1.5; }
+    .countdown-grid { gap: 7px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .time-unit { padding: 20px 4px 16px; }
+    .time-unit::before { width: 24px; }
+    .time-unit span { font-size: clamp(2rem, 9vw, 3rem); line-height: .9; }
+    .time-unit small { font-size: .5rem; letter-spacing: .08em; margin-top: 11px; }
+    .countdown-message { font-size: 1rem; margin-top: 20px; }
+    .venue-section { gap: 30px; }
+    .venue-visual img { aspect-ratio: 16 / 10; min-height: 0; }
+    .venue-frame { inset: 10px -10px -10px 10px; }
+    .venue-number { bottom: -16px; font-size: .6rem; left: 10px; padding: 10px 14px; }
+    .venue-content h2 { font-size: 3.2rem; margin-top: 12px; }
+    .venue-city { font-size: 2rem; margin: 6px 0 16px; }
+    .venue-description { font-size: 1.08rem; line-height: 1.5; }
+    .venue-content address { font-size: 1rem; margin: 16px 0 18px; }
+    .venue-facts { gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 22px; padding: 14px 0; }
+    .venue-facts > div + div { padding-left: 12px; }
+    .venue-facts strong { font-size: .96rem; }
+    .rsvp-section { gap: 26px; }
+    .rsvp-copy { text-align: center; }
+    .rsvp-copy h2 { font-size: 3rem; margin: 12px 0 16px; }
+    .rsvp-copy > p:not(.eyebrow) { font-size: 1.08rem; line-height: 1.5; }
+    .rsvp-monogram { display: none; }
+    .rsvp-form { padding: 28px 20px; }
+    .rsvp-form label > span { font-size: .54rem; letter-spacing: .1em; margin-bottom: 4px; }
+    .rsvp-form input,
+    .rsvp-form select,
+    .rsvp-form textarea { font-size: 1rem; margin-bottom: 18px; min-height: 44px; padding: 8px 0; }
+    .rsvp-form textarea { min-height: 70px; }
+    .form-row { gap: 14px; grid-template-columns: minmax(0, .65fr) minmax(0, 1.35fr); }
+    .form-row > label { min-width: 0; }
+    .form-button { width: 100%; }
+    .thanks-inner > .arabic { font-size: 1.16rem; }
+    .thanks-flourish { font-size: 1.6rem; margin: 12px 0; }
+    .thanks-inner h2 { font-size: clamp(2.3rem, 9vw, 3rem); }
+    .thanks-inner > p:not(.arabic) { font-size: 1.06rem; margin: 16px 0 22px; }
+    .signature { font-size: 2rem; }
+    footer { gap: 12px; padding: 26px 20px 76px; }
+    footer p { font-size: .5rem; letter-spacing: .1em; }
+    .auto-scroll-control { border-radius: 50%; bottom: max(12px, env(safe-area-inset-bottom, 0px)); gap: 0; justify-content: center; min-height: 46px; padding: 0; right: 12px; width: 46px; }
+    .auto-scroll-label { display: none; }
+    .popup-card { padding: 32px 24px; }
 }
 
+@media (max-width: 380px) {
+    .nav-shell { padding-inline: 12px; }
+    .nav-links { gap: 4px; }
+    .nav-links a { font-size: .58rem; letter-spacing: .05em; }
+    .paper-invitation { padding-inline: 19px; }
+    .event-ribbon > div { padding-inline: 3px; }
+    .event-ribbon strong { font-size: .6rem; }
+    .time-unit small { font-size: .46rem; letter-spacing: .02em; }
+    .rsvp-form { padding-inline: 16px; }
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+    .doorway { aspect-ratio: 16 / 10; height: 74svh; width: auto; max-width: 80vw; }
+    .invitation-card { padding: 22px; }
+    .invitation-card h2 { font-size: 2rem; margin: 12px 0; }
+}
+
+/* Respect each visitor's motion preference. */
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }

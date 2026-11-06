@@ -5,7 +5,6 @@ const seal = document.querySelector(".gold-seal");
 const form = document.getElementById("rsvpForm");
 const popup = document.getElementById("popup");
 const closePopupButton = document.getElementById("closePopup");
-const navToggle = document.querySelector(".nav-toggle");
 const navLinks = document.querySelector(".nav-links");
 const siteHeader = document.querySelector(".site-header");
 const autoScrollControl = document.getElementById("autoScrollControl");
@@ -18,6 +17,7 @@ const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 let autoScrollFrame = null;
 let autoScrollResumeTimer = null;
 let autoScrollLastTime = null;
+let autoScrollPosition = 0;
 let autoScrollActive = false;
 let autoScrollEnabled = true;
 let autoScrollComplete = false;
@@ -65,9 +65,11 @@ function autoScrollStep(timestamp) {
 
     if (autoScrollLastTime === null) autoScrollLastTime = timestamp;
     const elapsed = Math.min(timestamp - autoScrollLastTime, 50);
-    const speed = window.innerWidth <= 620 ? 24 : 32;
+    const speed = window.innerWidth <= 620 ? 30 : 40;
     autoScrollLastTime = timestamp;
-    window.scrollBy(0, speed * elapsed / 1000);
+    // Keep fractional pixels between frames and bypass CSS smooth scrolling.
+    autoScrollPosition += speed * elapsed / 1000;
+    window.scrollTo({ top: autoScrollPosition, behavior: "instant" });
 
     const reachedBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
     if (reachedBottom) {
@@ -81,11 +83,12 @@ function autoScrollStep(timestamp) {
 }
 
 function startAutoScroll() {
-    if (reducedMotion.matches || !autoScrollEnabled || autoScrollActive || document.hidden) return;
+    if (reducedMotion.matches || !autoScrollEnabled || autoScrollActive || document.hidden || form?.contains(document.activeElement)) return;
     window.clearTimeout(autoScrollResumeTimer);
     autoScrollComplete = false;
     autoScrollActive = true;
     autoScrollLastTime = null;
+    autoScrollPosition = window.scrollY;
     updateAutoScrollControl();
     autoScrollFrame = window.requestAnimationFrame(autoScrollStep);
 }
@@ -130,7 +133,7 @@ function showWebsite() {
             const target = document.getElementById(previewSection);
             if (!target) return;
             target.querySelectorAll(".reveal").forEach((item) => item.classList.add("is-visible"));
-            window.scrollTo({ top: target.offsetTop - 78, behavior: "auto" });
+            target.scrollIntoView({ behavior: "instant", block: "start" });
         };
         window.setTimeout(scrollToPreviewSection, 180);
         window.setTimeout(scrollToPreviewSection, 900);
@@ -243,18 +246,9 @@ function initRevealAnimations() {
     items.forEach((item) => observer.observe(item));
 }
 
-navToggle?.addEventListener("click", () => {
-    const isOpen = navToggle.classList.toggle("is-open");
-    navLinks?.classList.toggle("is-open", isOpen);
-    navToggle.setAttribute("aria-expanded", String(isOpen));
-});
-
 navLinks?.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
         pauseAutoScroll(7000);
-        navToggle?.classList.remove("is-open");
-        navLinks.classList.remove("is-open");
-        navToggle?.setAttribute("aria-expanded", "false");
     });
 });
 
@@ -279,7 +273,9 @@ autoScrollControl?.addEventListener("click", () => {
 });
 
 window.addEventListener("wheel", temporarilyPauseAutoScroll, { passive: true });
-window.addEventListener("touchstart", temporarilyPauseAutoScroll, { passive: true });
+window.addEventListener("touchstart", (event) => {
+    if (!event.target.closest("#autoScrollControl")) temporarilyPauseAutoScroll();
+}, { passive: true });
 window.addEventListener("pointerdown", (event) => {
     if (!event.target.closest("#autoScrollControl")) temporarilyPauseAutoScroll();
 }, { passive: true });
